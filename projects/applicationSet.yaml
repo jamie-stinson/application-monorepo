@@ -11,6 +11,10 @@ spec:
             namespace: platform-security
             version: v1.14.4
             train: external
+          - name: local-path-provisioner
+            namespace: platform-storage
+            version: 0.0.26
+            train: external
   template:
     metadata:
       name: '{{name}}'
