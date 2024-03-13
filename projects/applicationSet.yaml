@@ -9,11 +9,23 @@ spec:
         elements:
           - name: cert-manager
             namespace: platform-security
-            version: v1.14.4
+            version: 1.14.4
             train: external
           - name: local-path-provisioner
             namespace: platform-storage
             version: 0.0.26
+            train: external
+          - name: cloudnative-pg
+            namespace: platform-data
+            version: 0.20.1
+            train: external
+          - name: kyverno
+            namespace: platform-security
+            version: 3.1.4
+            train: external
+          - name: traefik
+            namespace: platform-ingress
+            version: 26.1.0
             train: external
   template:
     metadata:
@@ -36,8 +48,9 @@ spec:
           - CreateNamespace=false
           - PrunePropagationPolicy=foreground
           - PruneLast=true
-          - RespectIgnoreDifferences=true
+          - RespectIgnoreDifferences=false
           - ApplyOutOfSyncOnly=false
+          - ServerSideApply=true
         retry:
           limit: 5
           backoff:
