@@ -10,6 +10,7 @@ spec:
           - name: cert-manager
             namespace: platform-security
             version: v1.14.4
+            train: external
   template:
     metadata:
       name: '{{name}}'
@@ -17,7 +18,7 @@ spec:
       project: projectwhitebox
       source:
         repoURL: https://github.com/jamie-stinson/server-charts
-        path: 'charts/external/{{name}}'
+        path: 'charts/{{train}}/{{name}}'
       destination:
         server: 'https://kubernetes.default.svc'
         namespace: '{{namespace}}'
