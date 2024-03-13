@@ -2,19 +2,40 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: default-applicationset
-  namespace: platform-cicd
+  namespace: default
 spec:
   generators:
-    - git:
-        repoURL: 'https://github.com/jamie-stinson/application-monorepo.git'
-        revision: HEAD  # You can specify a branch, tag, or commit
-        directories:
-          - path: 'applications/*'
+    - list:
+        elements:
+          - name: cert-manager
+            namespace: platform-security
+            version: v1.14.4
   template:
     metadata:
-      name: '{{path.basename}}'
+      name: '{{name}}'
     spec:
       project: projectwhitebox
+      source:
+        repoURL: https://github.com/jamie-stinson/server-charts
+        path: 'charts/external/{{name}}'
       destination:
-        server: 'https://kubernetes.default.svc'  # Your Kubernetes cluster's API server URL
-        # namespace: 'default'  # The namespace to deploy the application into
+        server: 'https://kubernetes.default.svc'
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: false
+        syncOptions:
+          - Validate=true
+          - CreateNamespace=false
+          - PrunePropagationPolicy=foreground
+          - PruneLast=true
+          - RespectIgnoreDifferences=true
+          - ApplyOutOfSyncOnly=false
+        retry:
+          limit: 5
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m
