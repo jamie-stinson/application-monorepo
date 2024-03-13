@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: default-applicationset
+  namespace: platform-cicd
+spec:
+  generators:
+    - git:
+        repoURL: 'https://github.com/jamie-stinson/application-monorepo.git'
+        revision: HEAD  # You can specify a branch, tag, or commit
+        directories:
+          - path: 'applications/*'
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: projectwhitebox
+      destination:
+        server: 'https://kubernetes.default.svc'  # Your Kubernetes cluster's API server URL
+        # namespace: 'default'  # The namespace to deploy the application into
