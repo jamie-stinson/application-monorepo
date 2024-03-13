@@ -9,3 +9,7 @@ spec:
   description: Project Whitebox
   sourceRepos:
   - '*'
+  destinations:
+  - namespace: platform-security
+    server: https://kubernetes.default.svc
+    name: in-cluster
