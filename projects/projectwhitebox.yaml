@@ -10,6 +10,9 @@ spec:
   sourceRepos:
   - '*'
   destinations:
-  - namespace: platform-security
+  - namespace: '*'
     server: https://kubernetes.default.svc
     name: in-cluster
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
