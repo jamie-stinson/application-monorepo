@@ -39,10 +39,10 @@ spec:
             namespace: platform-observability
             version: 5.43.6
             train: external
-          - name: velero
-            namespace: platform-storage
-            version: 6.0.0
-            train: external
+          # - name: velero
+          #   namespace: platform-storage
+          #   version: 6.0.0
+          #   train: external
   template:
     metadata:
       name: '{{name}}'
