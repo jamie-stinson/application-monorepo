@@ -51,6 +51,9 @@ spec:
       source:
         repoURL: https://github.com/jamie-stinson/server-charts
         path: 'charts/{{train}}/{{name}}'
+        helm:
+          valueFiles:
+            - values.yaml
       destination:
         server: 'https://kubernetes.default.svc'
         namespace: '{{namespace}}'
