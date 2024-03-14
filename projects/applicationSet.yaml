@@ -27,6 +27,22 @@ spec:
             namespace: platform-ingress
             version: 26.1.0
             train: external
+          - name: kube-prometheus-stack
+            namespace: platform-observability
+            version: 57.0.2
+            train: external
+          - name: redis-operator
+            namespace: platform-data
+            version: 3.3.0
+            train: external
+          - name: loki
+            namespace: platform-observability
+            version: 5.43.6
+            train: external
+          - name: velero
+            namespace: platform-storage
+            version: 6.0.0
+            train: external
   template:
     metadata:
       name: '{{name}}'
